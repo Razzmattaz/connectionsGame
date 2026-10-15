@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&display=swap');
+body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-image: url("./imgSts/656636505_1586550456362216_5614174137460782496_n.jpg");
+        background-size: cover;        /* fills screen */
+        background-position: center;   /* keeps it centered */
+        background-repeat: no-repeat;  /* no tiling */
+        background-attachment: fixed;  /* subtle parallax effect */
+          font-size: 18px ;
+  font-family: "Kreon", serif;
+            }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 120px);
+        gap: 10px;
+        justify-content: center;
+    }
+.word {
+    padding: 13px;
+    height: 65px;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    background-color: rgb(27, 27, 27);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+    .selected {
+        background-color: rgb(145, 145, 145);
+    }
+    .solved {
+        color: white;
+        font-weight: bold;
+    }
+    .group1 { background-color: #246fa8; }
+    .group2 { background-color: #bcb900; }
+    .group3 { background-color: #0f9600; }
+    .group4 { background-color: #7f176e; }
+
+    .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 20px;
+}
+
+.image-panel {
+    height: 440px;
+    place-items: center;
+    background-color: rgba(27, 27, 27, 0);
+    margin-top: 84px;
+    margin-left: -750px;
+    z-index: -1;
+}
+
+.image-panel img {
+    width: auto;
+    height: 440px;
+    object-fit: cover;
+    border: 0px ;
+    padding: 5px;
+    display: none;
+
+}
+
+.game {
+  margin-top: -10px;
+  margin-left: 550px;
+  position: absolute;
+  color: white;
+  font-size: 19px ;
+  font-family: "Kreon", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.timer {
+  position: absolute;
+  margin-left: 750px;
+  margin-top: 510px;
+  color: white;
+  font-weight: bold;
+  font-family: "Kreon", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 19px;
+}
+
+.desc {
+  position: absolute;
+  margin-left: -750px;
+  margin-top: 500px;
+  color: white;
+  font-weight: bold;
+  font-family: "Kreon", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 19px;
+}
+
+.caption {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 25px;
+}
+
+.hp {
+  position: absolute;
+  margin-left: -750px;
+  margin-top: 0px;
+  color: white;
+  font-weight: bold;
+  font-family: "Kreon", serif;
+  font-weight: 400;
+  font-style: normal;
+
+}
+
+.icon{
+  width: auto;
+  height: 50px;
+}
+
+.navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 300px;
+  position: absolute;
+  margin-left: -1250px;
+  margin-top: 612px;
+}
+
+.result-item {
+    padding: 8px 12px;
+    border-radius: 999px; 
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.btn {
+    padding: 8px 12px;
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+    background-color: rgb(27, 27, 27);
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    border-radius: 999px;
+      font-family: "Kreon", serif;
+  font-weight: 400;
+  font-style: normal;
+    font-size: 19px;
+}
+
+.yellow {
+    background-color: #486ea3;
+}
+
+.green {
+    background-color: #b9b83c;
+}
+
+.blue {
+    background-color: #4e932b;
+}
+
+.purple {
+    background-color: #70246a;
+}

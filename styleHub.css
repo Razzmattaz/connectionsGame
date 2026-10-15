@@ -1,0 +1,294 @@
+
+body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: rgb(0, 0, 0);
+        background-image: url("");
+        background-size: cover;        /* fills screen */
+        background-position: center;   /* keeps it centered */
+        background-repeat: no-repeat;  /* no tiling */
+        background-attachment: fixed;  /* subtle parallax effect */
+          font-size: 19px ;
+  font-family: "Bodoni MT", serif;
+            }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 120px);
+        gap: 10px;
+        justify-content: center;
+    }
+.word {
+    padding: 13px;
+    height: 65px;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    user-select: none;
+    font-size: 20px;
+    background-color: rgb(27, 27, 27);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.cover{
+  height: 640px;
+  Width: 900px;
+  position:absolute;
+  background-color: #362f46;
+  z-index: 0;
+  justify-self: center;
+  border-radius: 20px;
+  margin-top: 9px;
+}
+    .selected {
+        background-color: rgb(145, 145, 145);
+    }
+    .solved {
+        color: white;
+        font-weight: bold;
+    }
+    .group1 { background-color: #246fa8; }
+    .group2 { background-color: #bcb900; }
+    .group3 { background-color: #0f9600; }
+    .group4 { background-color: #7f176e; }
+
+    .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 20px;
+}
+
+.image-panel {
+    height: 440px;
+    place-items: center;
+    background-color: rgba(27, 27, 27, 0);
+    margin-top: 84px;
+    margin-left: -750px;
+    z-index: -1;
+}
+
+.image-panel img {
+    width: auto;
+    height: 440px;
+    object-fit: cover;
+    border: 0px ;
+    padding: 5px;
+    display: none;
+
+}
+
+.game {
+  margin-top: -35px;
+  margin-left: 0%;
+  position: absolute;
+  color: rgb(250, 250, 250);
+  font-size: 29px ;
+  font-family: "Bodoni MT", serif;
+  font-weight: 600;
+  font-style: normal;
+  
+}
+
+.timer {
+  position: absolute;
+  margin-left: 750px;
+  margin-top: 525px;
+  color: white;
+  font-weight: bold;
+  font-family: "Dumbledor 1", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+}
+
+.desc {
+  position: absolute;
+  margin-left: -750px;
+  margin-top: 500px;
+  color: white;
+  font-weight: bold;
+  font-family: "Dumbledor 1", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+}
+
+.caption {
+  font-weight: 500;
+  font-style: normal;
+  font-size: 25px;
+}
+
+.hp {
+  position: absolute;
+  margin-left: -750px;
+  margin-top: 0px;
+  color: white;
+  font-weight: bold;
+  font-family: "Dumbledor 1", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
+}
+
+.icon{
+  width: auto;
+  height: 75px;
+  margin-top: 6%;
+  margin-left: 0%;
+}
+
+.navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  width: 800px;
+  height: 100px;
+  background-color: blueviolet;
+  font-size: 30px;
+  color: #ffffff;
+  font-style: normal;
+  font-family: "trajan-pro-3", serif;
+  font-size: 20px;
+  background-image: url("./imgsskong/the-doki-files-project-voidheart-part-1-v0-kfh7b8ec2epe1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+    border-radius: 20px;
+}
+.navbar2{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  width: 800px;
+  height: 100px;
+  background-color: blueviolet;
+  font-size: 30px;
+  color: #ffffff;
+  font-style: normal;
+  font-family: "Kreon", serif;
+  font-size: 24px;
+  background-image: url("./imgSts/656636505_1586550456362216_5614174137460782496_n.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+    border-radius: 20px;
+}
+.navbar3{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  width: 800px;
+  height: 100px;
+  background-color: blueviolet;
+  font-size: 30px;
+  color: #ffffff;
+  font-style: normal;
+  font-family: "Dumbledor 1", serif;
+  background-image: url("./imgBotc/any-decent-sources-for-clean-app-backgrounds-v0-ysfkqq0bojze1.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+    border-radius: 20px;
+}
+.navbar4{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  width: 800px;
+  height: 100px;
+  background-color: rgb(22, 13, 30);
+  font-size: 20px;
+  color: #ffffff;
+  font-style: normal;
+  font-family: "Press Start 2P", serif;
+    border-radius: 20px;
+
+}
+.greatBar{
+  display: flex;
+  flex-direction: column;
+  margin-left: 0%;
+  margin-top: 100px;
+  position: absolute;
+}
+.one{
+  width: 200px;
+  height: 100px;
+  background-color: black;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+.two{
+  width: 450px;
+  align-items: center;
+  justify-content: center;
+}
+a:link {
+  text-decoration: none;
+}
+.smol{
+  font-size: 17px;
+}
+.smo2l{
+  font-size: 14px;
+}
+.smo3l{
+
+  font-size: 25px;
+  font-weight: 100;
+  margin-top: -30px;
+}
+.text{
+  font-size: large;
+}
+.result-item {
+    padding: 8px 12px;
+    border-radius: 999px; 
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.btn {
+    padding: 8px 12px;
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+    background-color: rgb(27, 27, 27);
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    border-radius: 999px;
+      font-family: "Dumbledor 1", serif;
+  font-weight: 400;
+  font-style: normal;
+    font-size: 25px;
+}
+
+.yellow {
+    background-color: #486ea3;
+}
+
+.green {
+    background-color: #b9b83c;
+}
+
+.blue {
+    background-color: #4e932b;
+}
+
+.purple {
+    background-color: #70246a;
+}

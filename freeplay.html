@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://use.typekit.net/efc5xfu.css">
+  <link rel="stylesheet" href="style.css">  
+
+<meta charset="UTF-8">
+<title>Connections Game</title>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="image-panel">
+        <img id="preview" src="" alt="Hover a word" />
+        
+    </div>
+
+    <!-- 🎮 Game -->
+    <div class="game">
+        <h1>Hollow Knight Connections Freeplay</h1>
+
+
+        <div class="grid" id="grid"></div>
+
+        <br>
+        <button class="btn" id="submitBtn" onclick="submitGuess()">Guess</button>
+        <p id="message"></p>
+        <div id="results"></div>
+        
+    </div>
+    <div class="navbar">
+      <a href="./index.html">
+        <img src="./imgsskong/01_icon_calenr.png" alt="imgnot alalable?!" class="icon" title="Daily">
+      </a>
+      <a href="./freeplay.html">
+      <img src="./imgsskong/02_icon_refresh.png" alt="imgnot alalable?!" class="icon" title="Refresh">
+      </a>
+      <img src="./imgsskong/04_icon_hint.png" alt="imgnot alalable?!" class="icon" title="Lose 2 Masks, Get a Hint" onclick="useHint()">
+            <a href="./hubworld.html">
+      <img src="./imgsskong/07_home.png" alt="imgnot alalable?!" class="icon" title="Back to the Hub">
+      </a>
+    </div>
+
+    <div class="hp">
+      <p id="lives"></p>
+    </div>
+
+    <div class="desc">
+      <div class="caption" id="caption"></div>
+      <p id="description"></p>
+    </div>
+
+    <div class="timer">
+      <p id="timer">Time Elapsed: 0.0s</p>
+    </div>
+</div>
+
+</body>
+
+<script src="data/wordsSkong.js"></script>
+<script>
+
+// ========================================
+// ACTIVE GROUP GENERATION
+// ========================================
+
+let activeGroups = {};
+let activeCategoryObjects = [];
+
+function pickRandomCategory(pool) {
+    return pool[Math.floor(Math.random() * pool.length)];
+}
+
+const chosenCategories = [
+
+    pickRandomCategory(yellowCategories),
+
+    pickRandomCategory(greenCategories),
+
+    pickRandomCategory(blueCategories),
+
+    pickRandomCategory(purpleCategories)
+];
+
+chosenCategories.forEach(categoryObj => {
+
+    const selectedWords = categoryObj.getRandomWords(4);
+
+    activeGroups[categoryObj.name] = selectedWords;
+
+    activeCategoryObjects.push({
+        category: categoryObj,
+        words: selectedWords
+    });
+});
+
+// Build board
+let allWords = Object.values(activeGroups).flat();
+let shuffled = allWords.sort(() => Math.random() - 0.5);
+let mistakes = 0;
+const maxMistakes = 4;
+let selected = [];
+let solvedGroups = [];
+let revealedHints = [];
+const grid = document.getElementById("grid");
+const message = document.getElementById("message");
+let startTime = Date.now();
+let timerInterval;
+let gameOver = false;
+
+function disableSubmit() {
+    document.getElementById("submitBtn").disabled = true;
+}
+
+function enableSubmit() {
+    document.getElementById("submitBtn").disabled = false;
+}
+
+function render() {
+    grid.innerHTML = "";
+    shuffled.forEach(word => {
+        const div = document.createElement("div");
+        div.className = "word";
+        div.innerText = word;
+        addHoverEvents(div, word);
+
+        if (selected.includes(word)) {
+            div.classList.add("selected");
+        }
+
+        div.onclick = () => toggleWord(word);
+
+        grid.appendChild(div);
+    });
+    document.getElementById("results").innerHTML = "";
+}
+
+function toggleWord(word) {
+    // 🚫 Ignore clicks on already solved words
+    if (word.includes("|")) return;
+
+    if (selected.includes(word)) {
+        selected = selected.filter(w => w !== word);
+    } else {
+        if (selected.length < 4) {
+            selected.push(word);
+        }
+    }
+    renderSolved();
+}
+
+function submitGuess() {
+    if (selected.length !== 4) {
+        message.innerText = "Select exactly 4 words!";
+        return;
+    }
+
+    let correct = false;
+    let oneAway = false;
+
+    for (let [category, words] of Object.entries(activeGroups)) {
+        if (solvedGroups.includes(category)) continue;
+
+        let matchCount = selected.filter(word => words.includes(word)).length;
+
+        if (matchCount === 4) {
+            solvedGroups.push(category);
+
+            shuffled = shuffled.map(w => {
+                if (words.includes(w)) return w + "|" + category;
+                return w;
+            });
+
+            message.innerText = category;
+            correct = true;
+            break;
+        }
+
+        if (matchCount === 3) {
+            oneAway = true;
+        }
+    }
+
+    if (!correct) {
+        mistakes++;
+        updateLives();
+
+if (mistakes >= maxMistakes) {
+    gameOver = true;
+    clearInterval(timerInterval);
+    revealAll();
+    message.innerText = "";
+    disableSubmit();
+    return;
+}
+
+        if (oneAway) {
+            message.innerText = "One away!";
+        } else {
+            message.innerText = "Nope!";
+        }
+    }
+
+    selected = [];
+    renderSolved();
+
+if (solvedGroups.length === 4) {
+    gameOver = true;
+    clearInterval(timerInterval);
+    message.innerText = category;
+    disableSubmit();
+}
+}
+
+function renderSolved() {
+    grid.innerHTML = "";
+
+    shuffled.forEach(item => {
+        let [word, category] = item.split("|");
+
+        const div = document.createElement("div");
+        div.innerText = word;
+        div.className = "word";
+        addHoverEvents(div, word);
+
+        if (category) {
+            // ✅ Already solved → colored + NOT clickable
+            const categoryObj = activeCategoryObjects.find(
+              obj => obj.category.name === category
+          );
+
+          div.classList.add(
+              "solved",
+              categoryObj.category.color
+          );
+        } else {
+            // 🟦 Still playable
+            if (selected.includes(word)) {
+                div.classList.add("selected");
+            }
+
+            div.onclick = () => toggleWord(word);
+        }
+
+        grid.appendChild(div);
+    });
+}
+
+function updateLives() {
+    const livesText = document.getElementById("lives");
+    livesText.innerHTML = "";
+
+    let remaining = maxMistakes - mistakes;
+
+    for (let i = 0; i < maxMistakes; i++) {
+        const img = document.createElement("img");
+
+        if (i < remaining) {
+            img.src = "./imgsskong/Mask-Shard.webp";
+        } else {
+            img.src = "./imgsskong/Mask-Shard-empty.png";
+        }
+
+        img.style.width = "30px";
+        img.style.margin = "10px";
+
+        livesText.appendChild(img);
+    }
+}
+
+function addHoverEvents(div, word) {
+    div.onmouseenter = () => {
+        const img = document.getElementById("preview");
+        const caption = document.getElementById("caption");
+        const description = document.getElementById("description");
+
+        if (wordData[word]) {
+            img.src = wordData[word].image;
+            img.style.display = "block";
+
+            caption.innerText = word;
+            description.innerText = wordData[word].description;
+        } else {
+            img.style.display = "none";
+
+            caption.innerText = word;
+            description.innerText = "No description available.";
+        }
+    };
+
+    div.onmouseleave = () => {
+        const img = document.getElementById("preview");
+        const caption = document.getElementById("caption");
+        const description = document.getElementById("description");
+
+        img.style.display = "none";
+        img.src = "";
+
+        caption.innerText = "";
+        description.innerText = "";
+    };
+}
+
+function revealAll() {
+    const resultsDiv = document.getElementById("results");
+
+
+    const categories = Object.keys(activeGroups);
+
+    // Container for one-line layout
+    const container = document.createElement("div");
+    container.style.display = "flex";
+    container.style.gap = "10px";
+    container.style.flexWrap = "wrap";
+    container.style.justifyContent = "center";
+
+    categories.forEach((category, index) => {
+        const words = activeGroups[category];
+
+        // Reveal tiles visually
+        shuffled = shuffled.map(w => {
+            if (words.includes(w) && !w.includes("|")) {
+                return w + "|" + category;
+            }
+            return w;
+        });
+
+        // 🎨 Create colored label (no word list)
+        const span = document.createElement("span");
+        span.classList.add("result-item", "group" + (index + 1));
+        span.innerText = category;
+
+        container.appendChild(span);
+    });
+
+    resultsDiv.appendChild(container);
+
+    renderSolved();
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (gameOver) return;
+
+        let elapsed = (Date.now() - startTime) / 1000;
+        document.getElementById("timer").innerText = 
+            "Time: " + elapsed.toFixed(1) + "s";
+    }, 100);
+}
+
+function useHint() {
+
+    // 🚫 Don't allow hints after game over
+    if (gameOver) return;
+
+    // Get unsolved + unhindered categories
+    const availableCategories = Object.keys(activeGroups).filter(category =>
+        !solvedGroups.includes(category) &&
+        !revealedHints.includes(category)
+    );
+
+    // No more hints available
+    if (availableCategories.length === 0) {
+        message.innerText = "No hints remaining!";
+        return;
+    }
+
+    // ❤️ Lose one life
+    mistakes++;
+    mistakes++;
+    updateLives();
+
+    // 💀 Game over if out of lives
+    if (mistakes >= maxMistakes) {
+        gameOver = true;
+        clearInterval(timerInterval);
+
+        revealAll();
+        message.innerText = "U stupid or sumfin?";
+
+        return;
+    }
+
+    // 🎲 Pick random category
+    const randomCategory =
+        availableCategories[
+            Math.floor(Math.random() * availableCategories.length)
+        ];
+
+    revealedHints.push(randomCategory);
+
+    message.innerText = "Hint: " + randomCategory;
+}
+
+render();
+updateLives();
+startTimer();
+enableSubmit();
+</script>
+
+</body>
+</html>
