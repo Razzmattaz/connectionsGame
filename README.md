@@ -1,4 +1,2 @@
-This is a version of "NYT Connections" with a hollow knight theme on it.
-Currently there is a Daily Game and a infinitely playable version.
-
-"I am Gorb."
+This is a spin on NYT connections spaning diffrent Games. There is a daily version of every game as well as an endless variant.
+currently the game spans Hollow Knight, Slay the Spire and Blood on the Clocktower
