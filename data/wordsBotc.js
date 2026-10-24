@@ -114,6 +114,15 @@ const yellowCategories = [
             "Goon"
         ]
     ),
+    new YellowCategory(
+        "Characters that create misregistration",
+        [
+            "Recluse",
+            "Zombuul",
+            "Spy",
+            "Lycanthrope"
+        ]
+    ),
 ];
 
 // ========================================
@@ -186,6 +195,27 @@ const greenCategories = [
             "Town Crier",
             "Fortune Teller",
             "Seamstress"
+        ]
+    ),
+    new GreenCategory(
+        "Characters with 'Know' Reminder Tokens",
+        [
+            "Knight",
+            "Steward",
+            "Widow",
+            "Noble",
+            "Bounty Hunter",
+            "Balloonist"
+        ]
+    ),
+    new GreenCategory(
+        "Characters with the same Strating and Ending Letter",
+        [
+            "Seamstress",
+            "Ravenkeeper",
+            "Widow",
+            "Ojo",
+            "Nightwatchman",
         ]
     ),
 ];
@@ -271,15 +301,7 @@ const blueCategories = [
             "Snitch"
         ]
     ),
-        new BlueCategory(
-        "BMR Demons",
-        [
-            "Po",
-            "Zombuul",
-            "Shabaloth",
-            "Pukka"
-        ]
-    ),
+
 ];
 
 // ========================================
@@ -295,17 +317,6 @@ const purpleCategories = [
             "Kazali",
             "Xaan",
             "Legion"
-        ]
-    ),
-
-    new PurpleCategory(
-        "Non-Demon sources of Poison",
-        [
-            "Cannibal",
-            "Xaan",
-            "Poisoner",
-            "Widow",
-            "Snake Charmer"
         ]
     ),
 
@@ -362,16 +373,6 @@ const purpleCategories = [
         ]
     ),
 
-    new PurpleCategory(
-        "Demonbanes",
-        [
-            "Ravenkeeper",
-            "Banshee",
-            "Farmer",
-            "Soldier",
-            "Sage"
-        ]
-    ),
 
     new PurpleCategory(
         "Demons with more that 1 Word in their Name",
@@ -911,7 +912,39 @@ const wordData = {
   "Wraith": {
     image: "./imgBotc/Icon_wraith.png",
     description: "You may choose to open your eyes at night.\n You wake when other evil players do."
-  }
+  },
+  "Balloonist": {
+    image: "./imgBotc/Icon_balloonist.png",
+    description: "Each night, you learn a player of a different\n character type than last night. [+0 or +1 Outsider]"
+  },
+  "Knight": {
+    image: "./imgBotc/Icon_knight.png",
+    description: "You start knowing 2 players that are not the Demon."
+  },
+  "Lycanthrope": {
+    image: "./imgBotc/Icon_lycanthrope.png",
+    description: "Each night*, choose an alive player. If good,\n they die & the Demon doesn’t kill tonight. One good player registers as evil."
+  },
+  "Nightwatchman": {
+    image: "./imgBotc/Icon_nightwatchman.png",
+    description: "Once per game, at night, choose a player:\n they learn you are the Nightwatchman."
+  },
+  "Noble": {
+    image: "./imgBotc/Icon_noble.png",
+    description: "You start knowing 3 players, 1 and only 1 of which is evil."
+  },
+  "Ojo": {
+    image: "./imgBotc/Icon_ojo.png",
+    description: "Each night*, choose a character: they die.\n If they are not in play, the Storyteller chooses who dies."
+  },
+  "Spy": {
+    image: "./imgBotc/Icon_spy.png",
+    description: "Each night, you see the Grimoire. You might register\n as good & as a Townsfolk or Outsider, even if dead."
+  },
+  "Steward": {
+    image: "./imgBotc/Icon_steward.png",
+    description: "You start knowing 1 good player."
+  },
 };
 
 
